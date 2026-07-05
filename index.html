@@ -1,48 +1,55 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Digimon Vpet Picker</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digimon Vpet Favorite Picker</title>
+<meta name="description" content="Elegí tu Digimon favorito de cada Vpet original.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div class="device">
-    <div class="device__vent" aria-hidden="true"></div>
+<header class="site-header">
+  <h1>DIGIMON <span>VPET PICKER</span></h1>
+  <p class="tagline">Elegí tu favorito de cada dispositivo</p>
+</header>
 
-    <header class="screen">
-      <div class="screen__scanlines" aria-hidden="true"></div>
-      <p class="screen__eyebrow">DIGIMON VPET PICKER</p>
-      <h1 class="screen__title" id="lineTitle">—</h1>
-      <p class="screen__meta" id="releaseMeta">—</p>
-    </header>
+<!-- Pestañas por grupo + toggle de repetidos -->
+<nav class="controles">
+  <div id="tabs" class="tabs"></div>
+  <label class="toggle">
+    <input type="checkbox" id="toggle-repetidos" checked>
+    <span>Mostrar repetidos</span>
+  </label>
+</nav>
 
-    <nav class="lines" id="lineNav" aria-label="Líneas de Vpet"></nav>
-    <div class="releases" id="releaseNav" aria-label="Versión específica del Vpet"></div>
+<!-- Selector de vpet dentro del grupo activo -->
+<nav id="subtabs" class="subtabs"></nav>
 
-    <main class="grid" id="grid"></main>
+<!-- Roster del vpet seleccionado (uno solo a la vez) -->
+<main id="vpets"></main>
 
-    <p class="empty" id="emptyState" hidden>
-      Todavía no hay Digimon cargados para esta versión. Se completa con data real más adelante.
-    </p>
+<!-- Lista completa de favoritos -->
+<section id="resumen" class="resumen">
+  <h2>Mis favoritos</h2>
+  <div id="resumen-grid" class="resumen-grid"></div>
+  <button id="btn-reset" type="button">Borrar selección</button>
+</section>
 
-    <section class="favorites" aria-label="Tus favoritos">
-      <div class="favorites__header">
-        <h2 class="favorites__title">★ FAVORITOS <span id="favCount">(0)</span></h2>
-        <button class="favorites__clear" id="clearFavs" type="button">Vaciar</button>
-      </div>
-      <div class="favorites__grid" id="favGrid"></div>
-      <p class="favorites__empty" id="favEmpty">
-        Todavía no marcaste ningún Digimon. Tocá una carta del grid para sumarla acá.
-      </p>
-    </section>
-  </div>
+<!-- Líneas evolutivas de cada Vpet -->
+<section id="evocharts" class="evocharts">
+  <h2>Líneas evolutivas</h2>
+  <div id="chart-view" class="chart-view"></div>
+</section>
 
-  <script src="data.js"></script>
-  <script src="script.js"></script>
+<footer class="site-footer">
+  <p>Datos de wikimon.net · Inspirado en el Ultimate Favorite Pokémon Picker de CajunAvenger.</p>
+</footer>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
 </body>
 </html>

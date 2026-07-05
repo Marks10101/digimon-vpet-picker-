@@ -1,338 +1,432 @@
 /* ============================================================
-   DIGIMON VPET PICKER — ESTILOS
-   Identidad visual: la carcasa plástica + pantalla LCD de un
-   Vpet real, no un dashboard genérico. Tokens abajo.
+   Estética: carcasa de vpet + pantalla LCD
+   Paleta:
+   --shell   #2b2b33  (carcasa oscura)
+   --lcd     #aebf6b  (verde LCD)
+   --lcd-dk  #5c6b33  (pixel apagado)
+   --accent  #f2913d  (naranja digivice)
+   --paper   #17171c  (fondo página)
    ============================================================ */
 
 :root {
-  --void: #1a1815;
-  --shell: #e8e2d0;
-  --shell-shadow: #cfc7ad;
-  --lcd: #8b9a6b;
-  --lcd-dark: #4a5a37;
-  --lcd-pixel: #24301a;
-  --signal: #e8491d;
-  --ink: #2b2823;
-
-  --font-display: 'Press Start 2P', monospace;
-  --font-body: 'Space Grotesk', system-ui, sans-serif;
-  --font-mono: 'IBM Plex Mono', monospace;
+  --shell: #2b2b33;
+  --shell-hi: #3a3a45;
+  --lcd: #aebf6b;
+  --lcd-dk: #5c6b33;
+  --accent: #f2913d;
+  --paper: #17171c;
+  --texto: #e8e8ee;
+  --display: "VT323", monospace;
+  --body: "Inter", system-ui, sans-serif;
 }
 
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
-  min-height: 100vh;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 48px 16px;
-  background: radial-gradient(circle at 50% 0%, #2a2721 0%, var(--void) 65%);
-  font-family: var(--font-body);
-  color: var(--ink);
+  background: var(--paper);
+  color: var(--texto);
+  font-family: var(--body);
+  line-height: 1.5;
 }
 
-button { font-family: inherit; }
+/* ---------- Header ---------- */
 
-button:focus-visible {
-  outline: 3px solid var(--signal);
-  outline-offset: 2px;
+.site-header {
+  text-align: center;
+  padding: 48px 16px 24px;
 }
 
-.device {
-  width: min(720px, 100%);
-  background: var(--shell);
-  border-radius: 48px 48px 28px 28px;
-  padding: 28px 24px 32px;
-  position: relative;
-  box-shadow:
-    0 0 0 6px var(--shell-shadow) inset,
-    0 30px 70px -25px rgba(0, 0, 0, 0.65);
+.site-header h1 {
+  font-family: var(--display);
+  font-size: clamp(2.4rem, 7vw, 4rem);
+  margin: 0;
+  letter-spacing: 2px;
+  color: var(--lcd);
+  text-shadow: 3px 3px 0 var(--lcd-dk);
 }
 
-.device__vent {
-  position: absolute;
-  top: 14px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 64px;
-  height: 6px;
-  border-radius: 3px;
-  background: repeating-linear-gradient(90deg, var(--shell-shadow) 0 4px, transparent 4px 8px);
+.site-header h1 span { color: var(--accent); text-shadow: 3px 3px 0 #7a4318; }
+
+.tagline {
+  margin: 4px 0 0;
+  color: #9a9aa6;
+  font-size: 0.95rem;
 }
 
-/* --- pantalla LCD --- */
+/* ---------- Resumen ---------- */
 
-.screen {
-  background: var(--lcd);
-  border-radius: 18px;
-  padding: 20px 22px;
-  margin-top: 22px;
-  position: relative;
-  overflow: hidden;
-  box-shadow: inset 0 2px 14px rgba(0, 0, 0, 0.35);
+.resumen {
+  max-width: 960px;
+  margin: 0 auto 40px;
+  padding: 16px;
+  text-align: center;
 }
 
-.screen__scanlines {
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0.07) 0 2px, transparent 2px 4px);
-  pointer-events: none;
-}
-
-.screen__eyebrow {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  color: var(--lcd-dark);
+.resumen h2,
+.evocharts h2 {
+  font-family: var(--display);
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+  color: var(--accent);
   margin: 0 0 12px;
 }
 
-.screen__title {
-  font-family: var(--font-display);
-  font-size: clamp(18px, 4vw, 28px);
-  line-height: 1.4;
-  color: var(--lcd-pixel);
-  margin: 0 0 10px;
-  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.18);
-}
-
-.screen__meta {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  color: var(--lcd-dark);
-  margin: 0;
-}
-
-/* --- navegación --- */
-
-.lines {
+.resumen-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 22px;
+  justify-content: center;
+  gap: 12px;
 }
 
-.lines__btn {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  border: 2px solid var(--ink);
-  background: transparent;
-  color: var(--ink);
-  padding: 8px 14px;
-  border-radius: 999px;
-  cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
-}
-
-.lines__btn.is-active {
-  background: var(--signal);
-  border-color: var(--signal);
-  color: var(--shell);
-}
-
-.lines__btn:hover:not(.is-active) {
-  border-color: var(--signal);
-  color: var(--signal);
-}
-
-.releases {
+.slot {
+  background: var(--shell);
+  border: 2px solid var(--shell-hi);
+  border-radius: 12px;
+  padding: 10px 12px 8px;
+  min-width: 110px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px dashed var(--shell-shadow);
-}
-
-.releases__btn {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  border: 1px solid var(--shell-shadow);
-  background: rgba(0, 0, 0, 0.03);
-  color: var(--ink);
-  padding: 5px 10px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.releases__btn.is-active {
-  background: var(--ink);
-  color: var(--shell);
-  border-color: var(--ink);
-}
-
-.releases__btn--all {
-  font-weight: 700;
-  border-style: solid;
-  border-width: 2px;
-}
-
-/* --- favoritos --- */
-
-.favorites {
-  margin-top: 28px;
-  padding-top: 20px;
-  border-top: 2px dashed var(--shell-shadow);
-}
-
-.favorites__header {
-  display: flex;
+  flex-direction: column;
   align-items: center;
+  gap: 4px;
+}
+
+.slot img,
+.slot .placeholder { width: 56px; height: 56px; image-rendering: pixelated; }
+
+.slot.vacio { opacity: 0.45; }
+
+.slot-nombre { font-size: 0.85rem; font-weight: 600; }
+
+.slot-vpet { font-size: 0.7rem; color: #9a9aa6; }
+
+#btn-reset {
+  margin-top: 16px;
+  font-family: var(--display);
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  background: none;
+  color: var(--accent);
+  border: 2px solid var(--accent);
+  border-radius: 8px;
+  padding: 6px 18px;
+  cursor: pointer;
+}
+
+#btn-reset:hover { background: var(--accent); color: var(--paper); }
+
+/* ---------- Secciones por Vpet ---------- */
+
+#vpets {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.vpet {
+  background: var(--shell);
+  border: 2px solid var(--shell-hi);
+  border-radius: 20px;
+  padding: 18px;
+}
+
+.vpet-header {
+  display: flex;
+  align-items: baseline;
   justify-content: space-between;
   gap: 12px;
   margin-bottom: 12px;
 }
 
-.favorites__title {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  letter-spacing: 0.06em;
+.vpet-header h2 {
+  font-family: var(--display);
+  font-size: 1.6rem;
+  letter-spacing: 1px;
   margin: 0;
-  color: var(--ink);
+  color: var(--texto);
 }
 
-.favorites__clear {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  border: 1px solid var(--shell-shadow);
+.vpet-anio {
+  font-family: var(--display);
+  color: var(--accent);
+  font-size: 1.2rem;
+}
+
+/* La grilla es la "pantalla LCD" del dispositivo */
+.vpet-grid {
+  background: var(--lcd);
+  border-radius: 10px;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: 8px;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+.celda {
+  appearance: none;
+  border: 2px solid transparent;
+  border-radius: 8px;
   background: transparent;
-  color: var(--ink);
-  padding: 4px 10px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.favorites__clear:hover {
-  border-color: var(--signal);
-  color: var(--signal);
-}
-
-.favorites__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
-  gap: 10px;
-}
-
-.favorites__empty {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--shell-shadow);
-  text-align: center;
-  padding: 16px;
-  border: 1px dashed var(--shell-shadow);
-  border-radius: 12px;
-  margin: 0;
-}
-
-/* --- grid de Digimon --- */
-
-.grid {
-  margin-top: 24px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
-  gap: 10px;
-}
-
-.card {
-  background: rgba(0, 0, 0, 0.03);
-  border: 1px solid var(--shell-shadow);
-  border-radius: 12px;
-  padding: 10px 6px 8px;
+  padding: 8px 4px 6px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   cursor: pointer;
+  font-family: var(--body);
+  color: #2e3418;
+  transition: transform 0.08s;
 }
 
-.card:hover {
-  border-color: var(--signal);
-}
+.celda:hover { transform: translateY(-2px); border-color: var(--lcd-dk); }
 
-.card__sprite-wrap {
-  position: relative;
-  width: 52px;
-  height: 52px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+.celda:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 
-.card__sprite {
-  max-width: 100%;
-  max-height: 100%;
+.celda img,
+.celda .placeholder {
+  width: 64px;
+  height: 64px;
   image-rendering: pixelated;
 }
 
-/* placeholder cuando falta el sprite real */
-.card__sprite-wrap.no-sprite .card__sprite {
-  display: none;
+.placeholder {
+  display: grid;
+  place-items: center;
+  background: var(--lcd-dk);
+  color: var(--lcd);
+  font-family: var(--display);
+  font-size: 2rem;
+  border-radius: 6px;
 }
 
-.card__sprite-wrap.no-sprite::before {
-  content: '';
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: var(--lcd);
-  box-shadow:
-    -7px 4px 0 -3px var(--lcd-pixel),
-    7px 4px 0 -3px var(--lcd-pixel);
-}
-
-.card__star {
-  position: absolute;
-  top: -4px;
-  right: -4px;
-  font-size: 14px;
-  color: var(--signal);
-  opacity: 0;
-  transition: opacity 0.15s ease, transform 0.15s ease;
-  transform: scale(0.6);
-}
-
-.card.is-favorite .card__star {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.card.is-favorite {
-  border-color: var(--signal);
-  background: rgba(232, 73, 29, 0.08);
-}
-
-.card__name {
-  font-size: 12px;
+.celda-nombre {
+  font-size: 0.78rem;
   font-weight: 600;
   text-align: center;
-  line-height: 1.2;
+  word-break: break-word;
 }
 
-.card__stage {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  color: var(--shell);
-  background: var(--ink);
-  padding: 2px 6px;
-  border-radius: 4px;
+.celda.seleccionado {
+  background: var(--lcd-dk);
+  border-color: #2e3418;
+  color: var(--lcd);
 }
 
-/* --- estado vacío --- */
+/* ---------- Líneas evolutivas ---------- */
 
-.empty {
-  margin-top: 24px;
+.evocharts {
+  max-width: 960px;
+  margin: 48px auto 0;
+  padding: 0 16px;
   text-align: center;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--shell-shadow);
-  padding: 28px 16px;
-  border: 1px dashed var(--shell-shadow);
-  border-radius: 14px;
 }
 
-@media (max-width: 480px) {
-  .device { padding: 22px 16px 26px; border-radius: 36px 36px 22px 22px; }
-  .screen { padding: 16px; }
+.chart {
+  background: var(--shell);
+  border: 2px solid var(--shell-hi);
+  border-radius: 14px;
+  margin-bottom: 12px;
+  text-align: left;
+  overflow: hidden;
 }
+
+.chart summary {
+  font-family: var(--display);
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+  padding: 12px 18px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.chart summary::before { content: "▸ "; color: var(--accent); }
+.chart[open] summary::before { content: "▾ "; }
+
+.chart img {
+  display: block;
+  max-width: 100%;
+  margin: 0 auto 16px;
+  image-rendering: pixelated;
+}
+
+.chart-pendiente {
+  padding: 0 18px 16px;
+  color: #9a9aa6;
+  font-size: 0.9rem;
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  text-align: center;
+  padding: 40px 16px 24px;
+  color: #6c6c78;
+  font-size: 0.85rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .celda { transition: none; }
+}
+
+/* ---------- Pestañas y toggle ---------- */
+
+.controles {
+  max-width: 960px;
+  margin: 0 auto 24px;
+  padding: 0 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.tab {
+  font-family: var(--display);
+  font-size: 1.15rem;
+  letter-spacing: 1px;
+  background: var(--shell);
+  color: var(--texto);
+  border: 2px solid var(--shell-hi);
+  border-radius: 10px 10px 0 0;
+  padding: 8px 16px 6px;
+  cursor: pointer;
+}
+
+.tab:hover { border-color: var(--accent); }
+
+.tab.activa {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--paper);
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: #c9c9d4;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle input { accent-color: var(--accent); width: 18px; height: 18px; }
+
+/* Toggle apagado -> se ocultan los repetidos */
+body.solo-nuevos .celda.repetido { display: none; }
+
+/* Marca visual de repetido cuando sí se muestran */
+.celda.repetido::after {
+  content: "↺";
+  position: absolute;
+  top: 2px;
+  right: 6px;
+  font-size: 0.85rem;
+  color: var(--lcd-dk);
+}
+
+.celda { position: relative; }
+
+.grid-vacia {
+  grid-column: 1 / -1;
+  margin: 8px;
+  font-family: var(--display);
+  font-size: 1.2rem;
+  color: var(--lcd-dk);
+  text-align: center;
+}
+
+.resumen-vacio { color: #9a9aa6; font-size: 0.9rem; }
+
+.chart-grupo {
+  font-family: var(--display);
+  font-size: 1.4rem;
+  letter-spacing: 1px;
+  color: var(--lcd);
+  text-align: left;
+  margin: 24px 0 8px;
+}
+
+/* ---------- Sub-pestañas (selector de vpet) ---------- */
+
+.subtabs {
+  max-width: 960px;
+  margin: 0 auto 20px;
+  padding: 0 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.subtab {
+  font-family: var(--body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  background: var(--shell);
+  color: #c9c9d4;
+  border: 1.5px solid var(--shell-hi);
+  border-radius: 999px;
+  padding: 5px 12px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.subtab:hover { border-color: var(--accent); color: var(--texto); }
+
+.subtab.activa {
+  background: var(--lcd);
+  border-color: var(--lcd);
+  color: #2e3418;
+}
+
+.subtab .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex: none;
+}
+
+/* ---------- Selector de líneas evolutivas ---------- */
+
+.evocharts { text-align: left; }
+
+.evocharts h2 { text-align: center; }
+
+.tabs-chart,
+.subtabs-chart {
+  max-width: none;
+  padding: 0;
+  margin: 0 0 12px;
+  justify-content: flex-start;
+}
+
+.tabs-chart .tab { border-radius: 10px; }
+
+.chart-view {
+  background: var(--shell);
+  border: 2px solid var(--shell-hi);
+  border-radius: 20px;
+  padding: 18px;
+}
+
+.chart-view img {
+  display: block;
+  max-width: 100%;
+  margin: 0 auto;
+  image-rendering: pixelated;
+  border-radius: 8px;
+}
+
+.chart-view img + img { margin-top: 16px; }
+
+.chart-view .chart-pendiente { padding: 0; }
