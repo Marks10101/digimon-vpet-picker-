@@ -1,0 +1,254 @@
+/* ============================================================
+   DIGIMON VPET PICKER — ESTILOS
+   Identidad visual: la carcasa plástica + pantalla LCD de un
+   Vpet real, no un dashboard genérico. Tokens abajo.
+   ============================================================ */
+
+:root {
+  --void: #1a1815;
+  --shell: #e8e2d0;
+  --shell-shadow: #cfc7ad;
+  --lcd: #8b9a6b;
+  --lcd-dark: #4a5a37;
+  --lcd-pixel: #24301a;
+  --signal: #e8491d;
+  --ink: #2b2823;
+
+  --font-display: 'Press Start 2P', monospace;
+  --font-body: 'Space Grotesk', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 48px 16px;
+  background: radial-gradient(circle at 50% 0%, #2a2721 0%, var(--void) 65%);
+  font-family: var(--font-body);
+  color: var(--ink);
+}
+
+button { font-family: inherit; }
+
+button:focus-visible {
+  outline: 3px solid var(--signal);
+  outline-offset: 2px;
+}
+
+.device {
+  width: min(720px, 100%);
+  background: var(--shell);
+  border-radius: 48px 48px 28px 28px;
+  padding: 28px 24px 32px;
+  position: relative;
+  box-shadow:
+    0 0 0 6px var(--shell-shadow) inset,
+    0 30px 70px -25px rgba(0, 0, 0, 0.65);
+}
+
+.device__vent {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 64px;
+  height: 6px;
+  border-radius: 3px;
+  background: repeating-linear-gradient(90deg, var(--shell-shadow) 0 4px, transparent 4px 8px);
+}
+
+/* --- pantalla LCD --- */
+
+.screen {
+  background: var(--lcd);
+  border-radius: 18px;
+  padding: 20px 22px;
+  margin-top: 22px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 2px 14px rgba(0, 0, 0, 0.35);
+}
+
+.screen__scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0.07) 0 2px, transparent 2px 4px);
+  pointer-events: none;
+}
+
+.screen__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--lcd-dark);
+  margin: 0 0 12px;
+}
+
+.screen__title {
+  font-family: var(--font-display);
+  font-size: clamp(18px, 4vw, 28px);
+  line-height: 1.4;
+  color: var(--lcd-pixel);
+  margin: 0 0 10px;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.screen__meta {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--lcd-dark);
+  margin: 0;
+}
+
+/* --- navegación --- */
+
+.lines {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 22px;
+}
+
+.lines__btn {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  border: 2px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  padding: 8px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.lines__btn.is-active {
+  background: var(--signal);
+  border-color: var(--signal);
+  color: var(--shell);
+}
+
+.lines__btn:hover:not(.is-active) {
+  border-color: var(--signal);
+  color: var(--signal);
+}
+
+.releases {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--shell-shadow);
+}
+
+.releases__btn {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  border: 1px solid var(--shell-shadow);
+  background: rgba(0, 0, 0, 0.03);
+  color: var(--ink);
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.releases__btn.is-active {
+  background: var(--ink);
+  color: var(--shell);
+  border-color: var(--ink);
+}
+
+/* --- grid de Digimon --- */
+
+.grid {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
+  gap: 10px;
+}
+
+.card {
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid var(--shell-shadow);
+  border-radius: 12px;
+  padding: 10px 6px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.card:hover {
+  border-color: var(--signal);
+}
+
+.card__sprite-wrap {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card__sprite {
+  max-width: 100%;
+  max-height: 100%;
+  image-rendering: pixelated;
+}
+
+/* placeholder cuando falta el sprite real */
+.card__sprite-wrap.no-sprite .card__sprite {
+  display: none;
+}
+
+.card__sprite-wrap.no-sprite::before {
+  content: '';
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--lcd);
+  box-shadow:
+    -7px 4px 0 -3px var(--lcd-pixel),
+    7px 4px 0 -3px var(--lcd-pixel);
+}
+
+.card__name {
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.card__stage {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--shell);
+  background: var(--ink);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* --- estado vacío --- */
+
+.empty {
+  margin-top: 24px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--shell-shadow);
+  padding: 28px 16px;
+  border: 1px dashed var(--shell-shadow);
+  border-radius: 14px;
+}
+
+@media (max-width: 480px) {
+  .device { padding: 22px 16px 26px; border-radius: 36px 36px 22px 22px; }
+  .screen { padding: 16px; }
+}

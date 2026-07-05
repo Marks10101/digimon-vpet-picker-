@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digimon Vpet Picker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="device">
+    <div class="device__vent" aria-hidden="true"></div>
+
+    <header class="screen">
+      <div class="screen__scanlines" aria-hidden="true"></div>
+      <p class="screen__eyebrow">DIGIMON VPET PICKER</p>
+      <h1 class="screen__title" id="lineTitle">—</h1>
+      <p class="screen__meta" id="releaseMeta">—</p>
+    </header>
+
+    <nav class="lines" id="lineNav" aria-label="Líneas de Vpet"></nav>
+    <div class="releases" id="releaseNav" aria-label="Versión específica del Vpet"></div>
+
+    <main class="grid" id="grid"></main>
+
+    <p class="empty" id="emptyState" hidden>
+      Todavía no hay Digimon cargados para esta versión. Se completa con data real más adelante.
+    </p>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
