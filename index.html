@@ -29,6 +29,17 @@
     <p class="empty" id="emptyState" hidden>
       Todavía no hay Digimon cargados para esta versión. Se completa con data real más adelante.
     </p>
+
+    <section class="favorites" aria-label="Tus favoritos">
+      <div class="favorites__header">
+        <h2 class="favorites__title">★ FAVORITOS <span id="favCount">(0)</span></h2>
+        <button class="favorites__clear" id="clearFavs" type="button">Vaciar</button>
+      </div>
+      <div class="favorites__grid" id="favGrid"></div>
+      <p class="favorites__empty" id="favEmpty">
+        Todavía no marcaste ningún Digimon. Tocá una carta del grid para sumarla acá.
+      </p>
+    </section>
   </div>
 
   <script src="data.js"></script>

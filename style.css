@@ -163,6 +163,69 @@ button:focus-visible {
   border-color: var(--ink);
 }
 
+.releases__btn--all {
+  font-weight: 700;
+  border-style: solid;
+  border-width: 2px;
+}
+
+/* --- favoritos --- */
+
+.favorites {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 2px dashed var(--shell-shadow);
+}
+
+.favorites__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.favorites__title {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  margin: 0;
+  color: var(--ink);
+}
+
+.favorites__clear {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  border: 1px solid var(--shell-shadow);
+  background: transparent;
+  color: var(--ink);
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.favorites__clear:hover {
+  border-color: var(--signal);
+  color: var(--signal);
+}
+
+.favorites__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
+  gap: 10px;
+}
+
+.favorites__empty {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--shell-shadow);
+  text-align: center;
+  padding: 16px;
+  border: 1px dashed var(--shell-shadow);
+  border-radius: 12px;
+  margin: 0;
+}
+
 /* --- grid de Digimon --- */
 
 .grid {
@@ -217,6 +280,27 @@ button:focus-visible {
   box-shadow:
     -7px 4px 0 -3px var(--lcd-pixel),
     7px 4px 0 -3px var(--lcd-pixel);
+}
+
+.card__star {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  font-size: 14px;
+  color: var(--signal);
+  opacity: 0;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  transform: scale(0.6);
+}
+
+.card.is-favorite .card__star {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.card.is-favorite {
+  border-color: var(--signal);
+  background: rgba(232, 73, 29, 0.08);
 }
 
 .card__name {
