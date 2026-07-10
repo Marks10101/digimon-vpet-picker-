@@ -17,33 +17,54 @@
   <p class="tagline">Elegí tu favorito de cada dispositivo</p>
 </header>
 
-<!-- Pestañas por grupo + toggle de repetidos -->
-<nav class="controles">
-  <div id="tabs" class="tabs"></div>
-  <label class="toggle">
-    <input type="checkbox" id="toggle-repetidos" checked>
-    <span>Mostrar repetidos</span>
-  </label>
-</nav>
+<div class="layout">
+  <div class="contenido">
 
-<!-- Selector de vpet dentro del grupo activo -->
-<nav id="subtabs" class="subtabs"></nav>
+    <!-- Navegación fija: siempre visible para cambiar de vpet -->
+    <div class="nav-fija">
+      <nav class="controles">
+        <div id="tabs" class="tabs"></div>
+        <label class="toggle">
+          <input type="checkbox" id="toggle-repetidos" checked>
+          <span>Mostrar repetidos</span>
+        </label>
+      </nav>
+      <div class="subtabs-carrusel">
+        <button id="subtabs-prev" type="button" class="flecha" aria-label="Anterior">◀</button>
+        <nav id="subtabs" class="subtabs"></nav>
+        <button id="subtabs-next" type="button" class="flecha" aria-label="Siguiente">▶</button>
+      </div>
+    </div>
 
-<!-- Roster del vpet seleccionado (uno solo a la vez) -->
-<main id="vpets"></main>
+    <!-- Roster del vpet seleccionado (uno solo a la vez) -->
+    <main id="vpets"></main>
 
-<!-- Lista completa de favoritos -->
-<section id="resumen" class="resumen">
-  <h2>Mis favoritos</h2>
-  <div id="resumen-grid" class="resumen-grid"></div>
-  <button id="btn-reset" type="button">Borrar selección</button>
-</section>
+    <!-- Líneas evolutivas: carrusel del vpet activo -->
+    <section id="evocharts" class="evocharts">
+      <div class="evocharts-header">
+        <h2>Líneas evolutivas</h2>
+        <button id="btn-charts" type="button">Mostrar imágenes</button>
+      </div>
+      <div id="chart-view" class="chart-view"></div>
+    </section>
 
-<!-- Líneas evolutivas de cada Vpet -->
-<section id="evocharts" class="evocharts">
-  <h2>Líneas evolutivas</h2>
-  <div id="chart-view" class="chart-view"></div>
-</section>
+  </div>
+
+  <!-- Favoritos: columna fija a la derecha -->
+  <aside id="resumen" class="resumen">
+    <h2>Mis favoritos</h2>
+    <!-- Elegir favorito por vpet (uno por dispositivo) o por versión -->
+    <div class="modo-favoritos">
+      <button id="modo-vpet" type="button" class="modo">Por Vpet</button>
+      <button id="modo-version" type="button" class="modo">Por Versión</button>
+    </div>
+    <div id="resumen-grid" class="resumen-grid"></div>
+    <div class="resumen-acciones">
+      <button id="btn-descargar" type="button">Descargar imagen</button>
+      <button id="btn-reset" type="button">Borrar selección</button>
+    </div>
+  </aside>
+</div>
 
 <footer class="site-footer">
   <p>Datos de wikimon.net · Inspirado en el Ultimate Favorite Pokémon Picker de CajunAvenger.</p>

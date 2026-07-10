@@ -1,21 +1,23 @@
 /* ============================================================
-   Estética: carcasa de vpet + pantalla LCD
+   Estética: UI digital estilo Digimon
    Paleta:
-   --shell   #2b2b33  (carcasa oscura)
-   --lcd     #aebf6b  (verde LCD)
-   --lcd-dk  #5c6b33  (pixel apagado)
-   --accent  #f2913d  (naranja digivice)
-   --paper   #17171c  (fondo página)
+   --shell   azul panel profundo
+   --lcd     pantalla digital oscura
+   --neon    verde eléctrico (datos)
+   --accent  cian eléctrico (interfaz)
+   --paper   fondo con retícula digital
    ============================================================ */
 
 :root {
-  --shell: #2b2b33;
-  --shell-hi: #3a3a45;
-  --lcd: #aebf6b;
-  --lcd-dk: #5c6b33;
-  --accent: #f2913d;
-  --paper: #17171c;
-  --texto: #e8e8ee;
+  --ancho: min(1760px, 96vw);
+  --shell: #0d1b2e;      /* panel azul profundo */
+  --shell-hi: #1c3a5c;   /* borde azul */
+  --lcd: #06231b;        /* pantalla digital oscura */
+  --lcd-dk: #11503a;     /* verde apagado */
+  --neon: #5dffa9;       /* verde eléctrico */
+  --accent: #38e1ff;     /* cian eléctrico */
+  --paper: #050c18;      /* fondo digital */
+  --texto: #d9f4ff;
   --display: "VT323", monospace;
   --body: "Inter", system-ui, sans-serif;
 }
@@ -24,7 +26,11 @@
 
 body {
   margin: 0;
-  background: var(--paper);
+  background:
+    linear-gradient(rgba(56, 225, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56, 225, 255, 0.045) 1px, transparent 1px),
+    var(--paper);
+  background-size: 34px 34px, 34px 34px, auto;
   color: var(--texto);
   font-family: var(--body);
   line-height: 1.5;
@@ -42,11 +48,11 @@ body {
   font-size: clamp(2.4rem, 7vw, 4rem);
   margin: 0;
   letter-spacing: 2px;
-  color: var(--lcd);
-  text-shadow: 3px 3px 0 var(--lcd-dk);
+  color: var(--neon);
+  text-shadow: 0 0 14px rgba(93, 255, 169, 0.55), 3px 3px 0 #0c3d2a;
 }
 
-.site-header h1 span { color: var(--accent); text-shadow: 3px 3px 0 #7a4318; }
+.site-header h1 span { color: var(--accent); text-shadow: 0 0 14px rgba(56, 225, 255, 0.55), 3px 3px 0 #0a4a63; }
 
 .tagline {
   margin: 4px 0 0;
@@ -57,10 +63,16 @@ body {
 /* ---------- Resumen ---------- */
 
 .resumen {
-  max-width: 960px;
-  margin: 0 auto 40px;
+  background: var(--shell);
+  border: 2px solid var(--shell-hi);
+  border-radius: 20px;
   padding: 16px;
   text-align: center;
+  position: sticky;
+  top: 16px;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  align-self: start;
 }
 
 .resumen h2,
@@ -74,25 +86,30 @@ body {
 
 .resumen-grid {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .slot {
-  background: var(--shell);
+  background: var(--paper);
   border: 2px solid var(--shell-hi);
   border-radius: 12px;
-  padding: 10px 12px 8px;
-  min-width: 110px;
-  display: flex;
-  flex-direction: column;
+  padding: 8px 10px;
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 10px;
   align-items: center;
-  gap: 4px;
+  text-align: left;
 }
 
 .slot img,
-.slot .placeholder { width: 56px; height: 56px; image-rendering: pixelated; }
+.slot .placeholder {
+  width: 56px;
+  height: 56px;
+  image-rendering: pixelated;
+  grid-row: 1 / 3;
+}
 
 .slot.vacio { opacity: 0.45; }
 
@@ -118,7 +135,7 @@ body {
 /* ---------- Secciones por Vpet ---------- */
 
 #vpets {
-  max-width: 960px;
+  max-width: var(--ancho);
   margin: 0 auto;
   padding: 0 16px;
   display: flex;
@@ -157,11 +174,14 @@ body {
 
 /* La grilla es la "pantalla LCD" del dispositivo */
 .vpet-grid {
-  background: var(--lcd);
+  background:
+    repeating-linear-gradient(0deg, rgba(93, 255, 169, 0.05) 0 1px, transparent 1px 3px),
+    var(--lcd);
+  border: 1px solid #14523d;
   border-radius: 10px;
   padding: 12px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
   gap: 8px;
   box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.35);
 }
@@ -178,7 +198,7 @@ body {
   gap: 4px;
   cursor: pointer;
   font-family: var(--body);
-  color: #2e3418;
+  color: var(--neon);
   transition: transform 0.08s;
 }
 
@@ -188,16 +208,16 @@ body {
 
 .celda img,
 .celda .placeholder {
-  width: 64px;
-  height: 64px;
+  width: 104px;
+  height: 104px;
   image-rendering: pixelated;
 }
 
 .placeholder {
   display: grid;
   place-items: center;
-  background: var(--lcd-dk);
-  color: var(--lcd);
+  background: #0b3527;
+  color: var(--neon);
   font-family: var(--display);
   font-size: 2rem;
   border-radius: 6px;
@@ -211,15 +231,16 @@ body {
 }
 
 .celda.seleccionado {
-  background: var(--lcd-dk);
-  border-color: #2e3418;
-  color: var(--lcd);
+  background: #0d4230;
+  border-color: var(--neon);
+  color: #eaffff;
+  box-shadow: 0 0 12px rgba(93, 255, 169, 0.45);
 }
 
 /* ---------- Líneas evolutivas ---------- */
 
 .evocharts {
-  max-width: 960px;
+  max-width: var(--ancho);
   margin: 48px auto 0;
   padding: 0 16px;
   text-align: center;
@@ -275,7 +296,7 @@ body {
 /* ---------- Pestañas y toggle ---------- */
 
 .controles {
-  max-width: 960px;
+  max-width: var(--ancho);
   margin: 0 auto 24px;
   padding: 0 16px;
   display: flex;
@@ -357,7 +378,7 @@ body.solo-nuevos .celda.repetido { display: none; }
 /* ---------- Sub-pestañas (selector de vpet) ---------- */
 
 .subtabs {
-  max-width: 960px;
+  max-width: var(--ancho);
   margin: 0 auto 20px;
   padding: 0 16px;
   display: flex;
@@ -383,9 +404,10 @@ body.solo-nuevos .celda.repetido { display: none; }
 .subtab:hover { border-color: var(--accent); color: var(--texto); }
 
 .subtab.activa {
-  background: var(--lcd);
-  border-color: var(--lcd);
-  color: #2e3418;
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #03202c;
+  box-shadow: 0 0 10px rgba(56, 225, 255, 0.5);
 }
 
 .subtab .dot {
@@ -430,3 +452,451 @@ body.solo-nuevos .celda.repetido { display: none; }
 .chart-view img + img { margin-top: 16px; }
 
 .chart-view .chart-pendiente { padding: 0; }
+
+/* ---------- Botón mostrar/ocultar charts ---------- */
+
+.evocharts-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.evocharts-header h2 { margin: 0; }
+
+#btn-charts {
+  font-family: var(--display);
+  font-size: 1.05rem;
+  letter-spacing: 1px;
+  background: none;
+  color: var(--neon);
+  border: 2px solid var(--neon);
+  border-radius: 8px;
+  padding: 5px 14px;
+  cursor: pointer;
+}
+
+#btn-charts:hover { background: var(--neon); color: var(--paper); }
+
+.chart-view.oculto { display: none; }
+
+/* ---------- Divisor de versión dentro de la grilla ---------- */
+/* Línea que cruza todas las columnas con el nombre a la derecha */
+
+.version-divisor {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 10px 2px 2px;
+}
+
+.version-divisor:first-child { margin-top: 0; }
+
+.version-divisor::before {
+  content: "";
+  flex: 1;
+  height: 2px;
+  background: #1d6b4b;
+  border-radius: 2px;
+  opacity: 0.9;
+}
+
+.version-nombre {
+  font-family: var(--display);
+  font-size: 1.15rem;
+  letter-spacing: 1px;
+  color: var(--neon);
+  white-space: nowrap;
+}
+
+.vpet-grid .grid-vacia { margin: 2px 8px 10px; text-align: right; font-size: 1rem; color: #2f8a63; }
+
+/* ---------- Sprite en hover / selección ---------- */
+/* La celda muestra el arte; el sprite lo tapa al hover y en el elegido */
+
+.celda img.es-arte,
+.slot img.es-arte { image-rendering: auto; object-fit: contain; }
+
+.celda .alt {
+  display: none;
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 104px;
+  height: 104px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  background: #0a2e22;
+  border-radius: 6px;
+}
+
+.celda:hover .alt,
+.celda.seleccionado .alt { display: block; }
+
+.celda.seleccionado .alt { background: #0d4230; }
+
+/* ---------- Layout de 2 columnas: contenido + favoritos ---------- */
+
+.layout {
+  max-width: var(--ancho);
+  margin: 0 auto;
+  padding: 0 16px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 20px;
+  align-items: start;
+}
+
+/* Las secciones dentro del layout ya no manejan su propio ancho */
+.layout .controles,
+.layout .subtabs,
+.layout #vpets,
+.layout .evocharts {
+  max-width: none;
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.layout .evocharts { margin-top: 40px; }
+
+/* Favoritos: columna pegada a la derecha, siempre visible */
+.layout .resumen {
+  position: sticky;
+  top: 16px;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  max-width: none;
+  margin: 0;
+  padding: 16px;
+  background: var(--shell);
+  border: 2px solid var(--shell-hi);
+  border-radius: 16px;
+  text-align: center;
+}
+
+.layout .resumen-grid {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.layout .slot {
+  flex-direction: row;
+  text-align: left;
+  gap: 10px;
+  min-width: 0;
+}
+
+.layout .slot img,
+.layout .slot .placeholder { width: 48px; height: 48px; flex: none; }
+
+.layout .slot-nombre { font-size: 0.88rem; }
+
+.layout .slot > span { display: block; }
+
+.layout .slot .slot-textos { min-width: 0; }
+
+.layout .slot-vpet { font-size: 0.7rem; }
+
+/* En pantallas angostas el sidebar baja debajo del contenido */
+@media (max-width: 980px) {
+  .layout { grid-template-columns: 1fr; }
+  .layout .resumen { position: static; max-height: none; }
+}
+
+/* ---------- Carrusel de líneas evolutivas ---------- */
+
+.carrusel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.carrusel-centro {
+  flex: 1;
+  min-width: 0;
+  text-align: center;
+}
+
+.carrusel-titulo {
+  font-family: var(--display);
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+  color: var(--accent);
+  margin: 0 0 12px;
+}
+
+.carrusel-centro img {
+  display: block;
+  max-width: 100%;
+  margin: 0 auto;
+  image-rendering: pixelated;
+  border-radius: 8px;
+}
+
+.carrusel-contador {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--display);
+  font-size: 1.1rem;
+  color: #9a9aa6;
+  letter-spacing: 2px;
+}
+
+.carrusel-flecha {
+  font-family: var(--display);
+  font-size: 2.2rem;
+  line-height: 1;
+  width: 48px;
+  height: 48px;
+  flex: none;
+  background: none;
+  color: var(--accent);
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.carrusel-flecha:hover { background: var(--accent); color: var(--paper); }
+
+
+/* ---------- Layout con favoritos a la derecha ---------- */
+
+.layout {
+  max-width: var(--ancho);
+  margin: 0 auto;
+  padding: 0 16px;
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 20px;
+  align-items: start;
+}
+
+/* #vpets y .evocharts viven dentro de la columna principal */
+#vpets, .evocharts { max-width: none; padding: 0; }
+
+.evocharts { margin-top: 32px; }
+
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+  .resumen { position: static; max-height: none; }
+}
+
+/* ---------- Carrusel de líneas evolutivas ---------- */
+
+.carrusel-barra {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.carrusel-titulo { text-align: center; }
+
+.carrusel-titulo h3 {
+  font-family: var(--display);
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+  color: var(--accent);
+  margin: 0;
+}
+
+.carrusel-contador {
+  font-family: var(--display);
+  font-size: 1.05rem;
+  color: #9a9aa6;
+}
+
+.carrusel-btn {
+  font-family: var(--display);
+  font-size: 1.4rem;
+  background: var(--paper);
+  color: var(--neon);
+  border: 2px solid var(--shell-hi);
+  border-radius: 10px;
+  padding: 6px 16px;
+  cursor: pointer;
+  flex: none;
+}
+
+.carrusel-btn:hover:not(:disabled) { border-color: var(--neon); }
+
+.carrusel-btn:disabled { opacity: 0.35; cursor: default; }
+
+
+/* ---------- Navegación fija ---------- */
+/* Pestañas y sub-pestañas siempre visibles al scrollear */
+
+.nav-fija {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--paper);
+  padding: 10px 0 8px;
+  border-bottom: 2px solid var(--shell-hi);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+  margin-bottom: 20px;
+}
+
+.nav-fija .controles {
+  max-width: none;
+  padding: 0;
+  margin: 0 0 8px;
+}
+
+/* Carrusel de vpets: flechas + tira desplazable en una línea.
+   min-width: 0 evita que la tira ensanche la página */
+.subtabs-carrusel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.subtabs-carrusel .carrusel-btn {
+  font-size: 1rem;
+  padding: 4px 10px;
+}
+
+.nav-fija .subtabs {
+  max-width: none;
+  padding: 2px 0;
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* las flechas reemplazan la barra de scroll */
+}
+
+.nav-fija .subtabs::-webkit-scrollbar { display: none; }
+
+.nav-fija .subtab { white-space: nowrap; flex: none; }
+
+/* Que ningún contenedor del layout se ensanche por contenido interno */
+.layout > * { min-width: 0; }
+
+
+/* ---------- Contener el scroll de la barra de vpets ---------- */
+/* Sin esto, la fila de sub-pestañas (nowrap) fuerza el ancho de
+   toda la columna del grid y estira la página. Con min-width: 0
+   la barra scrollea internamente y la página mantiene su ancho. */
+
+.layout > * { min-width: 0; }
+
+.nav-fija { max-width: 100%; }
+
+.nav-fija .subtabs { max-width: 100%; }
+
+
+/* ---------- Año en el título del roster ---------- */
+
+.vpet-header .anio {
+  font-size: 0.68em;
+  color: var(--accent);
+}
+
+/* La nav fija con línea cian */
+.nav-fija { border-bottom-color: #14425e; }
+
+/* ---------- Favoritos v2: tarjetas grandes ---------- */
+/* Imagen grande con solo el nombre debajo (y de qué vpet/versión es) */
+
+.resumen-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
+  gap: 10px;
+}
+
+.resumen .slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4px;
+  padding: 10px 6px 8px;
+  background: var(--paper);
+  border: 2px solid var(--shell-hi);
+  border-radius: 12px;
+}
+
+.resumen .slot img,
+.resumen .slot .placeholder {
+  width: 96px;
+  height: 96px;
+  object-fit: contain;
+  grid-row: auto;
+}
+
+.resumen .slot-nombre {
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.resumen .slot-vpet {
+  font-size: 0.68rem;
+  color: #7fa8c9;
+  line-height: 1.1;
+}
+
+/* ---------- Selector de modo ---------- */
+
+.modo-favoritos {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.modo {
+  font-family: var(--display);
+  font-size: 1rem;
+  letter-spacing: 1px;
+  background: var(--paper);
+  color: #c9c9d4;
+  border: 2px solid var(--shell-hi);
+  border-radius: 8px;
+  padding: 4px 12px;
+  cursor: pointer;
+}
+
+.modo.activa {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #03202c;
+}
+
+/* ---------- Acciones del resumen ---------- */
+
+.resumen-acciones {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+#btn-descargar {
+  font-family: var(--display);
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  background: var(--neon);
+  color: var(--paper);
+  border: 2px solid var(--neon);
+  border-radius: 8px;
+  padding: 6px 18px;
+  cursor: pointer;
+}
+
+#btn-descargar:hover:not(:disabled) { background: transparent; color: var(--neon); }
+
+#btn-descargar:disabled { opacity: 0.5; cursor: wait; }
+
+#btn-reset { margin-top: 0; }
