@@ -51,7 +51,7 @@ En `data.js`, array `DIGIMON_LINES`. Cada línea es un grupo (ej. "Pendulum") co
 
 ## Pendiente (próximos pasos)
 
-- [ ] Completar roster real por release (arrancamos con Ver.1 nada más, a propósito)
+- [ ] Completar roster real por relea
 - [ ] Sistema de favoritos / equipo (como el original)
 - [ ] Búsqueda y filtro por tipo/stage
 - [ ] Sprites reales en `assets/sprites/`

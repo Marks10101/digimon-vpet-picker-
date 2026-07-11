@@ -202,7 +202,7 @@ body {
   transition: transform 0.08s;
 }
 
-.celda:hover { transform: translateY(-2px); border-color: var(--lcd-dk); }
+.celda:hover { border-color: var(--neon); }
 
 .celda:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 
@@ -210,7 +210,9 @@ body {
 .celda .placeholder {
   width: 104px;
   height: 104px;
+  object-fit: contain;
   image-rendering: pixelated;
+  flex: none;
 }
 
 .placeholder {
@@ -520,22 +522,29 @@ body.solo-nuevos .celda.repetido { display: none; }
 .celda img.es-arte,
 .slot img.es-arte { image-rendering: auto; object-fit: contain; }
 
+/* El sprite ocupa EXACTAMENTE el mismo lugar que el arte (misma caja
+   de 104x104, en el flujo normal). No es absolute, así la celda no
+   cambia de alto ni comprime nada al aparecer: solo se intercambian. */
 .celda .alt {
   display: none;
-  position: absolute;
-  top: 8px;
-  left: 50%;
-  transform: translateX(-50%);
   width: 104px;
   height: 104px;
   object-fit: contain;
   image-rendering: pixelated;
   background: #0a2e22;
   border-radius: 6px;
+  flex: none;
 }
 
+/* Al hacer hover o al estar seleccionado: se muestra el sprite y se
+   esconde el arte (uno reemplaza al otro, no se superponen) */
 .celda:hover .alt,
 .celda.seleccionado .alt { display: block; }
+
+.celda:hover img:not(.alt),
+.celda:hover .placeholder,
+.celda.seleccionado img:not(.alt),
+.celda.seleccionado .placeholder { display: none; }
 
 .celda.seleccionado .alt { background: #0d4230; }
 
@@ -900,3 +909,43 @@ body.solo-nuevos .celda.repetido { display: none; }
 #btn-descargar:disabled { opacity: 0.5; cursor: wait; }
 
 #btn-reset { margin-top: 0; }
+/* ---------- Nombre siempre en el mismo lugar ---------- */
+/* Reservamos una altura fija para el área de imagen (104px) y otra
+   para el nombre, así el texto no se mueve al cambiar arte <-> sprite
+   ni cuando alguna imagen falla en cargar. */
+
+.celda {
+  justify-content: flex-start;
+  min-height: 104px;
+}
+
+.celda img,
+.celda .placeholder,
+.celda .alt {
+  min-height: 104px;
+  max-height: 104px;
+}
+
+.celda-nombre {
+  margin-top: auto;
+  min-height: 2.1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* ---------- Orden dentro de la celda ---------- */
+/* El sprite se agrega al final por JS, así que en el DOM queda DESPUÉS
+   del nombre. Con flex order lo mandamos arriba: siempre imagen primero
+   y nombre debajo, sin que el texto se mueva al seleccionar. */
+
+.celda .alt { order: -1; }
+
+.celda-nombre {
+  order: 1;
+  min-height: 2.1em;      /* dos líneas: nombres largos no desalinean */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
